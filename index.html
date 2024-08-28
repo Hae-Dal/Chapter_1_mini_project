@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kr">
 
 <head>
     <meta charset="utf-8" />
@@ -188,8 +188,6 @@
                                             <label for="fullName" class="col-md-4 col-lg-7 col-form-label">내일 배움 캠프를 통해 좋은 개발자로 성장하고 싶습니다!</label>
                                         </div>
                                     </div>
-
-
                                 </form>
                                 <button class="btn btn-primary" data-bs-dismiss="modal">
                                     <i class="fas fa-xmark fa-fw"></i>
@@ -460,8 +458,52 @@
                                         </div>
                                     </div>
 
-
                                 </form>
+
+                                <div class="card-footer">
+                                    <form onsubmit="addComment(event)">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="댓글을 입력하세요" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">작성</button>
+                                    </form>
+                                    <div class="comments mt-3"></div>
+                                </div>
+                                <script>
+                                    function addComment(event) {
+                                        event.preventDefault();
+                                        var commentInput = event.target.querySelector("input");
+                                        var commentText = commentInput.value;
+                                        var date = new Date().toLocaleString();
+                                    
+                                        // 댓글을 표시할 div 생성
+                                        var commentDiv = document.createElement("div");
+                                        commentDiv.className = "card my-3";
+                                        commentDiv.innerHTML = `
+                                        <div class="card-body">
+                                            <p class="card-text">${commentText}</p>
+                                            <p class="card-text"><small class="text-muted">${date}</small></p>
+                                            <button class="btn btn-danger btn-sm delete-btn">삭제</button>
+                                        </div>
+                                        `;
+                                    
+                                        // 댓글 영역에 추가
+                                        var commentsDiv = event.target.parentNode.querySelector(".comments");
+                                        commentsDiv.insertBefore(commentDiv, commentsDiv.firstChild);
+                                    
+                                        // 입력칸 비우기
+                                        commentInput.value = "";
+                                    
+                                        // 삭제 버튼 클릭 이벤트 추가
+                                        var deleteButton = commentDiv.querySelector(".delete-btn");
+                                        deleteButton.addEventListener("click", function() {
+                                            commentDiv.remove();
+                                        });
+                                    }
+
+                                </script>
+                                
+
                                 <button class="btn btn-primary" data-bs-dismiss="modal">
                                     <i class="fas fa-xmark fa-fw"></i>
                                     창 닫기
