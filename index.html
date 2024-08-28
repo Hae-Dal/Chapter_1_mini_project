@@ -7,6 +7,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>1주차 미니 프로젝트</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -18,7 +19,24 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
     <script>
-        
+        function addcomment() {
+            let nickname = $('#nickname').val();
+            let comment = $('#comment').val();
+            let date = new Date().toLocaleString();
+
+            let temp_html = `
+            <div class="word">
+                <div>
+                    <p>${nickname}</p><pre>${comment}</pre><pre>${date}</pre>
+                </div>
+                <div class="delSave">
+                    <button type="button" class="btn btn-outline-success">수정</button>
+                    <button type="button" class="btn btn-outline-warning">삭제</button>
+                </div>
+            </div>`;
+
+            $('#append').append(temp_html);
+        }
     </script>
 </head>
 
@@ -375,15 +393,26 @@
                                 </form>
                                 <div class="comment-title">
                                     <div class="comment-box">
-                                        <input type="text" placeholder="닉네임" id="nickname">
+                                        <input type="text" placeholder="닉네임" id="nickname" required>
                                         <div class="form-floating mb-3">
-                                            <input type="email" class="form-control" id="floatingInput" placeholder="방몀록">
+                                            <input type="text" class="form-control" id="comment" placeholder="방명록"
+                                                required>
                                             <label for="floatingInput">방명록</label>
-                                          </div>
-                                        <button class="btn btn-info" >작성하기</button>
+                                        </div>
+                                        <button onclick="addcomment()" class="btn btn-info">작성하기</button>
                                     </div>
-                                    <div class="comment-save">
-
+                                    <div class="comment-save" id="append">
+                                        <div class="word">
+                                            <div>
+                                                <p>누구씨</p>
+                                                <pre>안녕하세요</pre>
+                                                <pre>오늘의 날짜는</pre>
+                                            </div>
+                                            <div class="delupdate">
+                                                <button type="button" id="update" class="btn btn-outline-success">수정</button>
+                                                <button type="button" id="delete" class="btn btn-outline-warning">삭제</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <button class="btn btn-primary" data-bs-dismiss="modal">

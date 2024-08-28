@@ -11052,7 +11052,7 @@ html {
   height: 600px;
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -11061,5 +11061,16 @@ html {
   background-color: green;
   width: 712px;
   height: auto;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
+.word {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
