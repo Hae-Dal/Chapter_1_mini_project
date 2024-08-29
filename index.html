@@ -19,91 +19,6 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
     <script>
-        let comments = [];
-
-        function addComment() {
-            const author = document.getElementById('author').value.trim();
-            const comment = document.getElementById('comment').value.trim();
-
-            if (author && comment) {
-                const newcomment = {
-                    id: Date.now(),
-                    author: author,
-                    comment: comment,
-                    time: new Date().toLocaleString(),
-                    isEditing: false
-                };
-
-                comments.push(newcomment);
-                document.getElementById('author').value = '';
-                document.getElementById('comment').value = '';
-                render();
-            }
-        }
-        function render() {
-            const commentContainer = document.getElementById('commentContainer');
-            commentContainer.innerHTML = '';
-
-            comments.forEach(comment => {
-                const commentBox = document.createElement('div');
-                commentBox.className = 'comment-box';
-
-                if (comment.isEditing) {
-                    commentBox.innerHTML = `
-                    <textarea id="editInput ${comment.id}"></textarea>
-                    <div class="comment-action">
-                        <button onclick="Update('${comment.id}')" class="btn btn-outline-success">수정</button>
-                        <button onclick="cancel('${comment.id}')" class="btn btn-outline-warning">취소</button>
-                    </div>
-                    `;
-                } else {
-                    commentBox.innerHTML = `
-                        <div class="comment-header">
-                            <strong>${comment.author}</strong> | ${comment.time}
-                        </div>
-                        <p>${comment.comment}</p>
-                        <div class="comment-action">
-                            <button onclick="Update('${comment.id}')"  class="btn btn-outline-success">수정</button>
-                            <button onclick="Delete('${comment.id}')"  class="btn btn-outline-warning">삭제</button>
-                        </div>`;
-
-                    }
-                commentContainer.appendChild(commentBox)
-            });
-        }
-
-        function Update(commentId) {
-            console.log(commentId)
-            comments = comments.map(comment =>
-                comment.id === commentId ? { ...comment, isEditing: true } : comment
-            );
-            render();
-        }
-
-        function save(commentId) {
-            const editInput = document.getElementById(`editInput${commentId}`);
-            const newCommentText = editInput.value.trim();
-
-            if (newCommentText) {
-                comments = comments.map(comment =>
-                    comment.id === commentId ? { ...comment, text: newCommentText, isEditing: false } : comment
-                );
-                render();
-            }
-        }
-
-        function cancel(commentId) {
-            comments = comments.map(comment =>
-                comment.id === commentId ? { ...comment, isEditing: false } : comment
-            )
-            render();
-        }
-
-        function Delete(commentId) {
-            console.log(commentId)
-            comments = comments.filter(comment => comment.id !== commentId);
-            render();
-        }
 
     </script>
 </head>
@@ -462,7 +377,7 @@
                                 <div>
                                     <div>
                                         <input type="text" id="author" placeholder="작성자">
-                                        <textarea id="comment" placeholder="방명록"></textarea>
+                                        <input type="text " id="comment" placeholder="방명록">
                                         <button onclick="addComment()" class="btn btn-info">작성</button>
                                     </div>
                                     <div id="commentContainer"></div>
