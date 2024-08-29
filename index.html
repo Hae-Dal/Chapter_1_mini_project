@@ -20,6 +20,53 @@
     <link href="css/styles.css" rel="stylesheet" />
     <script>
 
+
+        function addComment() {
+
+            let id = Date.now();
+            let name = document.getElementById('author').value.trim();
+            let comment = document.getElementById('comment').value.trim();
+            let date = new Date().toLocaleString();
+
+            console.log(id, name, comment, date);
+
+            document.getElementById('author').value = '';
+            document.getElementById('comment').value = '';
+
+            let HTML = `
+            <div id="${id}">
+                <div class="comment-header">
+                    <strong id="name">${name}</strong> | ${date}
+                </div>
+                <p id="cmt">${comment}</p>
+                <div class="comment-actions">
+                    <button id="up" onclick="update(${id})">수정</button>
+                    <button id="del" onclick="Delete(${id})">삭제</button>
+                </div>
+            </div>
+            `;
+            if (name && comment) {
+                $('#commentContainer').append(HTML);
+            } else {
+                alert('이름과 댓글을 입력하세요')
+            }
+        }
+
+        function update(id) {
+            
+            
+        }
+
+
+        function Delete(id) {
+
+            console.log('#'+id);
+            $("div").remove('#' + id);
+
+        }
+
+
+
     </script>
 </head>
 
