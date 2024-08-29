@@ -34,14 +34,14 @@
             document.getElementById('comment').value = '';
 
             let HTML = `
-            <div id="${id}">
-                <div class="comment-header">
+            <div id="${id}" class="cmt_box">
+                <div class="comment-header" id ="name_date">
                     <strong id="name">${name}</strong> | ${date}
                 </div>
                 <p id="cmt">${comment}</p>
-                <div class="comment-actions">
-                    <button id="up" onclick="update(${id})">수정</button>
-                    <button id="del" onclick="Delete(${id})">삭제</button>
+                <div class="comment-actions" >
+                    <button id="up" onclick="update1('${id}', '${name}', '${date}','${comment}')" class="btn btn-outline-success">수정</button>
+                    <button id="del" onclick="Delete('${id}')" class="btn btn-outline-warning">삭제</button>
                 </div>
             </div>
             `;
@@ -52,15 +52,48 @@
             }
         }
 
-        function update(id) {
-            
-            
+        function update1(id, name, date, comment) {
+            console.log(id, name, date, comment);
+            let HTML = `
+            <div id="`+ id + `" class="cmt_box">
+                <div class="comment-header" id ="name_date">
+                    <strong id="name">`+ name + `</strong> | ` + date + `
+                </div>
+                <input type="text " id="comment2" placeholder="방명록" value="`+ comment + `">
+                <div class="comment-actions">
+                    <button id="up" onclick="update_end('`+ id + `','` + name + `','` + date + `')" class="btn btn-outline-success">수정</button>
+                </div>
+            </div>
+            `;
+            $("div").remove('#' + id);
+            $('#commentContainer').append(HTML);
+
         }
+        function update_end(id, name, date) {
+            let comment = document.getElementById('comment2').value.trim();
+            console.log(comment);
+
+            let HTML = `
+            <div id="`+ id + `" class="cmt_box">
+                <div class="comment-header" id ="name_date">
+                    <strong id="name">`+ name + `</strong> | ` + date + `
+                </div>
+                <p id="cmt">${comment}</p>
+                <div class="comment-actions">
+                    <button id="up" onclick="update1('`+ id + `','` + name + `','` + date + `','${comment}')" class="btn btn-outline-success">수정</button>
+                    <button id="del" onclick="Delete('`+ id + `')" class="btn btn-outline-warning">삭제</button>
+                </div>
+            </div>
+            `;
+            $("div").remove('#' + id);
+            $('#commentContainer').append(HTML);
+        }
+
 
 
         function Delete(id) {
 
-            console.log('#'+id);
+            console.log('#' + id);
             $("div").remove('#' + id);
 
         }
@@ -91,9 +124,37 @@
     </nav>
     <!-- Masthead-->
     <header class="masthead bg-primary text-white text-center">
-        <div class="container d-flex align-items-center flex-column">
+        <div class="container d-flex align-items-center flex-column" style="margin-right: 400px;">
             <!-- Masthead Avatar Image-->
-            <img class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="..." />
+            <div class="container d-flex align-items-center flex-row">
+                <div class="container d-flex align-items-center flex-column "
+                    style="background-color: #000; opacity: 0.8; border-radius: 20px; height: 340px; padding: 20px 0 20px 0;">
+                    <h1>목표</h1>
+                    <hr>
+                    <div style="text-align: left; ">
+                        <h5>1. 매일 일정 소화하기</h5>
+                        <h5>2. 부끄러워도 물어보기</h5>
+                        <h5>3. 이번 프로젝트 포트폴리오로 사용하기</h5>
+                        <h5>4. 1일 1TIL, 1 알고리즘</h5>
+                        <h5>5. 당일 푼 코드카타 리뷰하기</h5>
+                    </div>
+                </div>
+                <img class="masthead-avatar mb-5" src="assets/img/image1.png" alt="..." />
+                <div class="container d-flex align-items-center flex-column"
+                    style="background-color: #000; opacity: 0.8;; border-radius: 20px; height: 340px; padding: 20px 5px 20px 0;">
+                    <h1 style="margin-bottom: 20px;">약속</h1>
+
+                    <div style="text-align: left; margin-left: 20px;">
+                        <h5>1. 시간 약속을 철저히 지키겠습니다.</h5>
+                        <h5>2. 소통을 중요시하며 자리 비움이나 문제가 생기면 빠르게 공유하겠습니다.</h5>
+                        <h5>3. 실수나 문제가 있어도 남 탓하지말고 문제를 해결해나가는데 집중하겠습니다.</h5>
+                        <h5>4. 대화를 할 때는 캠도 켜고 화면공유도 잘 하겠습니다. </h5>
+                        <h5>5. 적극적으로 소통하도록 노력하겠습니다.</h5>
+                    </div>
+                </div>
+            </div>
+
+
             <!-- Masthead Heading-->
             <h1 class="masthead-heading text-uppercase mb-0">소심즈</h1>
             <!-- Icon Divider-->
@@ -347,9 +408,137 @@
                                                 같이 일하고 싶은 사람이 되고 싶습니다</label>
                                         </div>
                                     </div>
+                                </form><!-- End Profile Edit Form -->
+                                <!-- Portfolio Modal - Text-->
 
 
-                                </form>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-8 col-lg-12">
+                                        <input type="text" class="col-md-4 col-lg-2 col-form-label" id="name"
+                                            style="ime-mode:active;" placeholder="작성자"> <!-- 작성자 입력 -->
+
+
+                                        <input type="text" class="col-md-4 col-lg-8 col-form-label" id="cmt"
+                                            placeholder="내용"> <!-- 방명록 입력 -->
+
+                                        <button type="button" class="btn btn-primary" onclick="comment()"
+                                            style="float: right;">등록</button> <!-- 등록버튼 클릭시 함수실행 -->
+
+                                    </div>
+                                </div>
+
+
+                                <div id="cmtCheck">
+                                    <div class="row mb-3">
+                                        <label for="Phone" class="col-md-4 col-lg-3 col-form-label">작성자</label>
+                                        <div class="col-md-8 col-lg-9" style="text-align: center;">
+                                            <label for="fullName" class="col-md-4 col-lg-7 col-form-label">방명록
+                                                내용</label>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <script>
+                                    // 방명록 작성 함수
+                                    function comment() {
+
+
+                                        let name = $('#name').val();
+                                        let cmt = $('#cmt').val();
+
+                                        $('#name').val("");
+                                        $('#cmt').val("");
+
+                                        console.log(name);
+
+
+                                        let html = `
+                                        <div class="row mb-3" id="${name}">
+
+                                        <label for="Phone" class="col-md-4 col-lg-3 col-form-label">${name}</label>
+                                        <div class="col-md-8 col-lg-9" style="text-align: left;">
+                                            <label for="fullName" class="col-md-4 col-lg-7 col-form-label">${cmt}</label>
+
+                                            <div style="float:right">
+                                            <button type="button" class="btn btn-primary" onclick="update('${name}','${cmt}')" style="margin:2px;">수정</button>
+                                            <button type="button" class="btn btn-primary" onclick="del('${name}')" style="margin:2px;">삭제</button>
+                                            </div>
+                                                
+                                        </div>
+
+                                        </div>`;
+
+
+                                        $('#cmtCheck').append(html);
+
+                                    }
+
+                                    // 방명록 수정 함수
+                                    function update(name, cmt) {
+
+                                        console.log(name, cmt);
+
+                                        let html = `
+                                        <label for="Phone" class="col-md-4 col-lg-3 col-form-label" >`+ name + `</label>
+                                        <div class="col-md-8 col-lg-9" style="text-align: left;">
+
+
+                                        <input type="text" class="col-md-4 col-lg-9 col-form-label" style="width:80%" id="${cmt}" value="${cmt}">
+
+
+                                        <button type="button" class="btn btn-primary" onclick="cmTup('${name}','${cmt}')" style="float:right">작성</button>
+                                        </div>`;
+
+
+                                        $('#' + name).html(html);
+
+                                    }
+
+                                    // 방명록 수정 완료 함수
+                                    function cmTup(name, cmt) {
+
+
+                                        let cmTup = $('#' + cmt).val();
+
+                                        console.log(cmTup);
+
+                                        let html = `
+                                            <label for="Phone" class="col-md-4 col-lg-3 col-form-label" >${name}</label>
+                                            <div class="col-md-8 col-lg-9" style="text-align: left;">
+
+
+                                            <label for="fullName" class="col-md-4 col-lg-7 col-form-label">${cmTup}</label>
+
+                                            
+                                            <div style="float:right">
+                                            <button type="button" class="btn btn-primary" onclick="update('${name}','${cmTup}')" style="margin:2px;">수정</button>
+                                            <button type="button" class="btn btn-primary" onclick="del('${name}')" style="margin:2px;">삭제</button>
+                                            </div>
+                                            </div>`;
+
+                                        $('#' + name).html(html);
+
+
+
+                                    }
+
+                                    //방명록 삭제 함수
+                                    function del(name) {
+                                        console.log(name);
+
+                                        $('#' + name).remove();
+
+                                    }
+
+
+
+                                </script>
+
                                 <button class="btn btn-primary" data-bs-dismiss="modal">
                                     <i class="fas fa-xmark fa-fw"></i>
                                     창 닫기
@@ -381,6 +570,7 @@
                                     <div class="divider-custom-line"></div>
                                 </div>
                                 <!-- Portfolio Modal - Image-->
+
                                 <img class="img-fluid rounded mb-5" src="assets/img/portfolio/inft.jpg" alt="..." />
                                 <div class="divider-custom">
                                     <div class="divider-custom-line"></div>
@@ -401,6 +591,7 @@
                                                 class="col-md-4 col-lg-3 col-form-label">1994.04.24</label>
                                         </div>
                                     </div>
+
                                     <div class="row mb-3">
                                         <label for="company" class="col-md-4 col-lg-3 col-form-label">취미</label>
                                         <div class="col-md-8 col-lg-9">
@@ -415,6 +606,7 @@
                                                 생각하다 개발에 관심이 생겨 시작하게 되었습니다</label>
                                         </div>
                                     </div>
+
                                     <div class="row mb-3">
                                         <label for="Country" class="col-md-4 col-lg-3 col-form-label">협업스타일</label>
                                         <div class="col-md-8 col-lg-9">
@@ -422,6 +614,7 @@
                                                 넓은 브레인 스토밍을 제공하겠습니다</label>
                                         </div>
                                     </div>
+
                                     <div class="row mb-3">
                                         <label for="Address" class="col-md-4 col-lg-3 col-form-label">블로그 주소</label>
                                         <div class="col-md-8 col-lg-9">
@@ -429,6 +622,7 @@
                                                 class="col-md-4 col-lg-6 col-form-label">https://velog.io/@jun_seok/posts</a>
                                         </div>
                                     </div>
+
                                     <div class="row mb-3">
                                         <label for="Phone" class="col-md-4 col-lg-3 col-form-label">한마디</label>
                                         <div class="col-md-8 col-lg-9">
@@ -443,8 +637,20 @@
                                         <input type="text " id="comment" placeholder="방명록">
                                         <button onclick="addComment()" class="btn btn-info">작성</button>
                                     </div>
-                                    <div id="commentContainer"></div>
+                                    <div id="cmtCheck">
+                                        <div class="row mb-3">
+                                            <label for="Phone" class="col-md-4 col-lg-3 col-form-label">작성자</label>
+                                            <div class="col-md-8 col-lg-9" style="text-align: center;">
+                                                <label for="fullName" class="col-md-4 col-lg-7 col-form-label">방명록
+                                                    내용</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="commentContainer">
+
+                                    </div>
                                 </div>
+
                                 <button class="btn btn-primary" data-bs-dismiss="modal">
                                     <i class="fas fa-xmark fa-fw"></i>
                                     창 닫기
@@ -457,8 +663,6 @@
         </div>
     </div>
     <!-- Portfolio Modal 4-->
-
-    <!-- Portfolio Modal 5-->
     <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" aria-labelledby="portfolioModal5"
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
@@ -560,6 +764,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
