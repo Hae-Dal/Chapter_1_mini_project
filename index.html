@@ -459,51 +459,70 @@
                                     </div>
 
                                 </form>
-
+                                
                                 <div class="card-footer">
                                     <form onsubmit="addComment(event)">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="댓글을 입력하세요" required>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">작성</button>
+                                      <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="댓글을 입력하세요" required>
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">작성</button>
                                     </form>
                                     <div class="comments mt-3"></div>
-                                </div>
-                                <script>
+                                  </div>
+                                  
+                                  <script>
                                     function addComment(event) {
-                                        event.preventDefault();
-                                        var commentInput = event.target.querySelector("input");
-                                        var commentText = commentInput.value;
-                                        var date = new Date().toLocaleString();
-                                    
-                                        // 댓글을 표시할 div 생성
-                                        var commentDiv = document.createElement("div");
-                                        commentDiv.className = "card my-3";
-                                        commentDiv.innerHTML = `
+                                      event.preventDefault();
+                                      var commentInput = event.target.querySelector("input");
+                                      var commentText = commentInput.value;
+                                      var date = new Date().toLocaleString();
+                                  
+                                      var commentDiv = document.createElement("div");
+                                      commentDiv.className = "card my-3";
+                                      commentDiv.innerHTML = `
                                         <div class="card-body">
-                                            <p class="card-text">${commentText}</p>
-                                            <p class="card-text"><small class="text-muted">${date}</small></p>
-                                            <button class="btn btn-danger btn-sm delete-btn">삭제</button>
+                                          <p class="card-text comment-text">${commentText}</p>
+                                          <p class="card-text"><small class="text-muted">${date}</small></p>
+                                          <button class="btn btn-warning btn-sm edit-btn">수정</button>
+                                          <button class="btn btn-danger btn-sm delete-btn">삭제</button>
                                         </div>
-                                        `;
-                                    
-                                        // 댓글 영역에 추가
-                                        var commentsDiv = event.target.parentNode.querySelector(".comments");
-                                        commentsDiv.insertBefore(commentDiv, commentsDiv.firstChild);
-                                    
-                                        // 입력칸 비우기
-                                        commentInput.value = "";
-                                    
-                                        // 삭제 버튼 클릭 이벤트 추가
-                                        var deleteButton = commentDiv.querySelector(".delete-btn");
-                                        deleteButton.addEventListener("click", function() {
-                                            commentDiv.remove();
-                                        });
+                                      `;
+                                  
+                                      var commentsDiv = event.target.parentNode.querySelector(".comments");
+                                      commentsDiv.insertBefore(commentDiv, commentsDiv.firstChild);
+                                  
+                                      // Add event listeners for edit and delete buttons
+                                      var editButton = commentDiv.querySelector(".edit-btn");
+                                      var deleteButton = commentDiv.querySelector(".delete-btn");
+                                  
+                                      editButton.addEventListener("click", function() {
+                                        editComment(commentDiv);
+                                      });
+                                  
+                                      deleteButton.addEventListener("click", function() {
+                                        deleteComment(commentDiv);
+                                      });
+                                  
+                                      commentInput.value = "";
                                     }
-
-                                </script>
-                                
-
+                                  
+                                    function editComment(commentDiv) {
+                                      var commentTextElement = commentDiv.querySelector(".comment-text");
+                                      var currentText = commentTextElement.textContent;
+                                      var newText = prompt("댓글을 수정하세요:", currentText);
+                                  
+                                      if (newText !== null && newText.trim() !== "") {
+                                        commentTextElement.textContent = newText;
+                                      }
+                                    }
+                                  
+                                    function deleteComment(commentDiv) {
+                                      if (confirm("정말로 이 댓글을 삭제하시겠습니까?")) {
+                                        commentDiv.remove();
+                                      }
+                                    }
+                                  </script>
+                                  
                                 <button class="btn btn-primary" data-bs-dismiss="modal">
                                     <i class="fas fa-xmark fa-fw"></i>
                                     창 닫기
