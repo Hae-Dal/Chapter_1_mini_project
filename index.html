@@ -594,6 +594,139 @@
                                     <!-- End Profile Edit Form -->
                                     <!-- Portfolio Modal - Text-->
 
+                                    <div class="row mb-3">
+                                        <div class="col-md-8 col-lg-12">
+                                            <input
+                                                type="text"
+                                                class="col-md-4 col-lg-2 col-form-label"
+                                                id="name"
+                                                style="ime-mode: active"
+                                                placeholder="작성자"
+                                            />
+                                            <!-- 작성자 입력 -->
+
+                                            <input
+                                                type="text"
+                                                class="col-md-4 col-lg-8 col-form-label"
+                                                id="cmt"
+                                                placeholder="내용"
+                                            />
+                                            <!-- 방명록 입력 -->
+
+                                            <button
+                                                type="button"
+                                                class="btn btn-primary"
+                                                onclick="comment()"
+                                                style="float: right"
+                                            >
+                                                등록
+                                            </button>
+                                            <!-- 등록버튼 클릭시 함수실행 -->
+                                        </div>
+                                    </div>
+
+                                    <div id="cmtCheck">
+                                        <div class="row mb-3">
+                                            <label
+                                                for="Phone"
+                                                class="col-md-4 col-lg-3 col-form-label"
+                                                >작성자</label
+                                            >
+                                            <div
+                                                class="col-md-8 col-lg-9"
+                                                style="text-align: center"
+                                            >
+                                                <label
+                                                    for="fullName"
+                                                    class="col-md-4 col-lg-7 col-form-label"
+                                                    >방명록 내용</label
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        // 방명록 작성 함수
+                                        function comment() {
+                                            let name = $("#name").val();
+                                            let cmt = $("#cmt").val();
+
+                                            $("#name").val("");
+                                            $("#cmt").val("");
+
+                                            console.log(name);
+
+                                            let html = `
+                                        <div class="row mb-3" id="${name}">
+
+                                        <label for="Phone" class="col-md-4 col-lg-3 col-form-label">${name}</label>
+                                        <div class="col-md-8 col-lg-9" style="text-align: left;">
+                                            <label for="fullName" class="col-md-4 col-lg-7 col-form-label">${cmt}</label>
+
+                                            <div style="float:right">
+                                            <button type="button" class="btn btn-primary" onclick="update('${name}','${cmt}')" style="margin:2px;">수정</button>
+                                            <button type="button" class="btn btn-primary" onclick="del('${name}')" style="margin:2px;">삭제</button>
+                                            </div>
+                                                
+                                        </div>
+
+                                        </div>`;
+
+                                            $("#cmtCheck").append(html);
+                                        }
+
+                                        // 방명록 수정 함수
+                                        function update(name, cmt) {
+                                            console.log(name, cmt);
+
+                                            let html =
+                                                `
+                                        <label for="Phone" class="col-md-4 col-lg-3 col-form-label" >` +
+                                                name +
+                                                `</label>
+                                        <div class="col-md-8 col-lg-9" style="text-align: left;">
+
+
+                                        <input type="text" class="col-md-4 col-lg-9 col-form-label" style="width:80%" id="${cmt}" value="${cmt}">
+
+
+                                        <button type="button" class="btn btn-primary" onclick="cmTup('${name}','${cmt}')" style="float:right">작성</button>
+                                        </div>`;
+
+                                            $("#" + name).html(html);
+                                        }
+
+                                        // 방명록 수정 완료 함수
+                                        function cmTup(name, cmt) {
+                                            let cmTup = $("#" + cmt).val();
+
+                                            console.log(cmTup);
+
+                                            let html = `
+                                            <label for="Phone" class="col-md-4 col-lg-3 col-form-label" >${name}</label>
+                                            <div class="col-md-8 col-lg-9" style="text-align: left;">
+
+
+                                            <label for="fullName" class="col-md-4 col-lg-7 col-form-label">${cmTup}</label>
+
+                                            
+                                            <div style="float:right">
+                                            <button type="button" class="btn btn-primary" onclick="update('${name}','${cmTup}')" style="margin:2px;">수정</button>
+                                            <button type="button" class="btn btn-primary" onclick="del('${name}')" style="margin:2px;">삭제</button>
+                                            </div>
+                                            </div>`;
+
+                                            $("#" + name).html(html);
+                                        }
+
+                                        //방명록 삭제 함수
+                                        function del(name) {
+                                            console.log(name);
+
+                                            $("#" + name).remove();
+                                        }
+                                    </script>
+
                                     <button
                                         class="btn btn-primary"
                                         data-bs-dismiss="modal"
@@ -953,6 +1086,7 @@
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
         <script src="js/comments.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- * *                               SB Forms JS                               * *-->
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
