@@ -11046,31 +11046,22 @@ html {
   background-color: #1a252f;
 }
 
-
-.comment-title{
-  width: 712px;
-  height: 600px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.comment-box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
-.comment-box{
-  background-color: green;
-  width: 712px;
-  height: auto;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+.comment-header {
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 5px;
 }
 
-.word {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+.comment-action {
+  margin-top: 5px;
+}
+
+.comment-action button {
+  margin-right: 5px;
 }
